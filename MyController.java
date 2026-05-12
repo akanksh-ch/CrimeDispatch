@@ -28,6 +28,11 @@ public class MyController implements Controller{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        // Sorting the incidents by severity (implemented Comparable)
+
+        Collections.sort(incidents);
+        Collections.reverse(incidents);
     }
 
     @Override
@@ -39,10 +44,6 @@ public class MyController implements Controller{
 
         // Display header
         result.append("Rank ID\tLocation\tDistrict\tCrime Type\tSev Date\tTime\n");
-
-        // Sorting the incidents by severity (implemented Comparable)
-        Collections.sort(incidents);
-        Collections.reverse(incidents);
 
         for(int i = 0; i < incidents.size(); i ++){
 
