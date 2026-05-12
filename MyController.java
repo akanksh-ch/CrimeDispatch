@@ -38,9 +38,10 @@ public class MyController implements Controller{
     @Override
     public String displayIncidentsByPriority(String date){
         // sort by severity
+        // using https://www.geeksforgeeks.org/java/java-comparator-interface/
         incidents.sort(Comparator
                 // refer https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#comparingInt-java.util.function.ToIntFunction-
-                .comparingInt((incident) -> incident.severity));
+                .comparingInt((Incident incident) -> incident.severity).reversed());
 
         // I couldn't find insert() or append() in regular 'String' class
         StringBuilder result = new StringBuilder();
@@ -68,7 +69,7 @@ public class MyController implements Controller{
         // sort by both severity and time
 
         incidents.sort(Comparator
-                .comparingInt((Incident incident) -> incident.severity)
+                .comparingInt((Incident incident) -> incident.severity).reversed()
                 .thenComparing((incident) -> incident.time, Comparator.reverseOrder())
                 .thenComparing((incident) -> incident.date, Comparator.reverseOrder())
         );
