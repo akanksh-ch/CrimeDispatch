@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class MyController implements Controller{
 
@@ -25,24 +26,23 @@ public class MyController implements Controller{
             while ((line = br.readLine()) != null) {
                 incidents.add(new Incident(line));
             }
+
+            br.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        // Sorting the incidents by severity (implemented Comparable)
-
-        Collections.sort(incidents);
-        Collections.reverse(incidents);
     }
 
     @Override
     public String displayIncidentsByPriority(String date){
-        // build string
+        // sort by severity
 
         // I couldn't find insert() or append() in regular 'String' class
         StringBuilder result = new StringBuilder();
 
         // Display header
+        result.append("High priority crime incidents\n\n");
         result.append("Rank ID\tLocation\tDistrict\tCrime Type\tSev Date\tTime\n");
 
         for(int i = 0; i < incidents.size(); i ++){
