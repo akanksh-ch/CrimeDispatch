@@ -38,18 +38,21 @@ public interface Controller {
             throw new RuntimeException(e);
         }
 
+        // I couldn't find insert() or append() in regular 'String' class
+        StringBuilder result = new StringBuilder();
+
         // Display header
-        System.out.print("Rank ID\tLocation\tDistrict\tCrime Type\tSev Date\tTime");
+        result.append("Rank ID\tLocation\tDistrict\tCrime Type\tSev Date\tTime");
 
         // Sorting the incidents by severity (implemented Comparable)
         Collections.sort(incidents);
 
-        String result = "";
+        // my javascript knowledge is useful here too
+        incidents.forEach(incident -> {
+            result.append(incident.toString()).append("\n");
+        });
 
-        // Loop over incidents
-
-        for(int i = 0; i < incidents.size(); i++){
-        }
+        return result.toString();
     };
 
     /**
