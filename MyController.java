@@ -36,6 +36,7 @@ public class MyController implements Controller{
 
         // Sorting the incidents by severity (implemented Comparable)
         Collections.sort(incidents);
+        Collections.reverse(incidents);
 
         // my JavaScript knowledge is useful here too
         for(int i = 0; i < incidents.size(); i ++){
