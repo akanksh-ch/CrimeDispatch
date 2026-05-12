@@ -1,5 +1,6 @@
 package CrimeDispatch;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -37,6 +38,9 @@ public class MyController implements Controller{
     @Override
     public String displayIncidentsByPriority(String date){
         // sort by severity
+        incidents.sort(Comparator
+                // refer https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#comparingInt-java.util.function.ToIntFunction-
+                .comparingInt((incident) -> incident.severity));
 
         // I couldn't find insert() or append() in regular 'String' class
         StringBuilder result = new StringBuilder();
@@ -61,7 +65,13 @@ public class MyController implements Controller{
 
     @Override
     public String dispatchPoliceUnits(String date) {
+        // sort by both severity and time
 
+        incidents.sort(Comparator
+                .comparingInt((Incident incident) -> incident.severity)
+                .thenComparing((incident) -> incident.time, Comparator.reverseOrder())
+                .thenComparing((incident) -> incident.date, Comparator.reverseOrder())
+        );
         return "";
     }
 
