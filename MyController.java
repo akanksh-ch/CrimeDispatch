@@ -5,9 +5,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 public class MyController implements Controller{
 
@@ -83,6 +81,11 @@ public class MyController implements Controller{
 
     @Override
     public String analyseCrimeHotspots(String date) {
+        // Make a hashmap of Location(string) and incidents(int) and insert all incidents, resulting in popularity hashmap
+
+        // gather latest 3 incidents from every location (keys)
+
+        // print table
         return "";
     }
 }

@@ -16,6 +16,7 @@ public class Main {
         // debug statements
 
         Controller controller = new MyController();
-        System.out.print(controller.displayIncidentsByPriority("2026-04-14"));
+        //System.out.print(controller.displayIncidentsByPriority("2026-04-14"));
+        System.out.print(controller.analyseCrimeHotspots("2026-04-14"));
     }
 }
