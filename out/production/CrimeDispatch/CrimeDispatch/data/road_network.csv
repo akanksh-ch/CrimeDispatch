@@ -1,0 +1,21 @@
+Start Location,End Location,Distance (km)
+Steelhouse Lane,Colmore Row,0.8
+Colmore Row,New Street,0.6
+Colmore Row,Jewellery Quarter,1.1
+New Street,Digbeth,1.2
+New Street,Edgbaston,2.3
+Digbeth,Small Heath,1.5
+Digbeth,Aston,2.1
+Aston,Erdington,3.2
+Aston,Handsworth,2.8
+Handsworth,Jewellery Quarter,2.0
+Small Heath,Bordesley,1.0
+Small Heath,Moseley,2.4
+Edgbaston,Bournville,2.2
+Edgbaston,Selly Oak,1.8
+Bournville,Kings Heath,2.0
+Kings Heath,Moseley,1.5
+Bordesley,Bordesley Green,1.1
+Small Heath,Sparkhill,1.3
+Moseley,Acocks Green,2.0
+Moseley,Quinton,3.5
