@@ -9,11 +9,12 @@ import java.util.Collections;
 
 public class MyController implements Controller{
 
-    @Override
-    public String displayIncidentsByPriority(String date){
+    ArrayList<Incident> incidents;
+
+    public MyController(){
         // Load incidents into memory
 
-        ArrayList<Incident> incidents = new ArrayList<>();
+        this.incidents = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader("data/crime_incidents.csv"))) {
 
@@ -27,6 +28,11 @@ public class MyController implements Controller{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public String displayIncidentsByPriority(String date){
+        // build string
 
         // I couldn't find insert() or append() in regular 'String' class
         StringBuilder result = new StringBuilder();
@@ -38,12 +44,11 @@ public class MyController implements Controller{
         Collections.sort(incidents);
         Collections.reverse(incidents);
 
-        // my JavaScript knowledge is useful here too
         for(int i = 0; i < incidents.size(); i ++){
 
             if (incidents.get(i).date.equals(LocalDate.parse(date))){
 
-                result.append(String.format("%d\t", i)) // Incident rank
+                result.append(String.format("%d\t", i+1)) // Incident rank
                         .append(incidents.get(i).toString()) // Full incident details
                         .append("\n"); // New line
 
@@ -55,6 +60,7 @@ public class MyController implements Controller{
 
     @Override
     public String dispatchPoliceUnits(String date) {
+
         return "";
     }
 
