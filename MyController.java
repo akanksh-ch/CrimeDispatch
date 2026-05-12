@@ -42,7 +42,7 @@ public class MyController implements Controller{
 
             if (incidents.get(i).date.equals(LocalDate.parse(date))){
 
-                result.append(String.format("%i\t", i)) // Incident rank
+                result.append(String.format("%d\t", i)) // Incident rank
                         .append(incidents.get(i).toString()) // Full incident details
                         .append("\n"); // New line
 
