@@ -24,36 +24,7 @@ public interface Controller {
      * @param date The date for which incidents should be displayed (format: YYYY-MM-DD).
      * @return A String representation of all crime incidents ranked by priority.
      */
-    String displayIncidentsByPriority(String date){
-        // Load incidents into memory
-
-        ArrayList<Incident> incidents = new ArrayList<>();
-
-        try (BufferedReader br = new BufferedReader(new FileReader("data/crime_incidents.csv"))) {
-            String line = "";
-            while ((line = br.readLine()) != null) {
-                incidents.add(new Incident(line));
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        // I couldn't find insert() or append() in regular 'String' class
-        StringBuilder result = new StringBuilder();
-
-        // Display header
-        result.append("Rank ID\tLocation\tDistrict\tCrime Type\tSev Date\tTime");
-
-        // Sorting the incidents by severity (implemented Comparable)
-        Collections.sort(incidents);
-
-        // my javascript knowledge is useful here too
-        incidents.forEach(incident -> {
-            result.append(incident.toString()).append("\n");
-        });
-
-        return result.toString();
-    };
+    String displayIncidentsByPriority(String date);
 
     /**
      * Allocates available police units to crime incidents based on the following
