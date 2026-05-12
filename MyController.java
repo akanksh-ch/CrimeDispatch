@@ -32,17 +32,22 @@ public class MyController implements Controller{
         StringBuilder result = new StringBuilder();
 
         // Display header
-        result.append("Rank ID\tLocation\tDistrict\tCrime Type\tSev Date\tTime");
+        result.append("Rank ID\tLocation\tDistrict\tCrime Type\tSev Date\tTime\n");
 
         // Sorting the incidents by severity (implemented Comparable)
         Collections.sort(incidents);
 
         // my JavaScript knowledge is useful here too
-        incidents.forEach(incident -> {
-            if (incident.date.equals(LocalDate.parse(date))){
-                result.append(incident.toString()).append("\n");
+        for(int i = 0; i < incidents.size(); i ++){
+
+            if (incidents.get(i).date.equals(LocalDate.parse(date))){
+
+                result.append(String.format("%i\t", i)) // Incident rank
+                        .append(incidents.get(i).toString()) // Full incident details
+                        .append("\n"); // New line
+
             }
-        });
+        };
 
         return result.toString();
     };
