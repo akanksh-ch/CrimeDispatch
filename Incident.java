@@ -3,7 +3,7 @@ package CrimeDispatch;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class Incident implements Comparable<Incident> {
+public class Incident {
     String id;
     String location;
     String district;
@@ -22,11 +22,6 @@ public class Incident implements Comparable<Incident> {
         this.severity = Integer.parseInt(items[4]);
         this.date = LocalDate.parse(items[5]);
         this.time = LocalTime.parse(items[6]);
-    }
-
-    @Override
-    public int compareTo(Incident other) {
-        return Integer.compare(this.severity, other.severity);
     }
 
     @Override
