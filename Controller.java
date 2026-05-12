@@ -1,5 +1,11 @@
 package CrimeDispatch;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+
 /**
  * A controller interface for the Birmingham Crime Pattern Analysis & Police
  * Dispatch System. This controller defines the main features that the intended
@@ -18,7 +24,33 @@ public interface Controller {
      * @param date The date for which incidents should be displayed (format: YYYY-MM-DD).
      * @return A String representation of all crime incidents ranked by priority.
      */
-    String displayIncidentsByPriority(String date);
+    String displayIncidentsByPriority(String date){
+        // Load incidents into memory
+
+        ArrayList<Incident> incidents = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader("data/crime_incidents.csv"))) {
+            String line = "";
+            while ((line = br.readLine()) != null) {
+                incidents.add(new Incident(line));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        // Display header
+        System.out.print("Rank ID\tLocation\tDistrict\tCrime Type\tSev Date\tTime");
+
+        // Sorting the incidents by severity (implemented Comparable)
+        Collections.sort(incidents);
+
+        String result = "";
+
+        // Loop over incidents
+
+        for(int i = 0; i < incidents.size(); i++){
+        }
+    };
 
     /**
      * Allocates available police units to crime incidents based on the following
