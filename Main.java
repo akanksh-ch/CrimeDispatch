@@ -8,7 +8,14 @@ package CrimeDispatch;
 public class Main {
 
     public static void main(String[] args) {
+        /*
         new TUI(new MyController() {
         });
+         */
+
+        // debug statements
+
+        Controller controller = new MyController();
+        controller.displayIncidentsByPriority("2026-04-14");
     }
 }
