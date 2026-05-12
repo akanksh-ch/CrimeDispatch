@@ -3,6 +3,7 @@ package CrimeDispatch;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -15,7 +16,11 @@ public class MyController implements Controller{
         ArrayList<Incident> incidents = new ArrayList<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader("data/crime_incidents.csv"))) {
-            String line = "";
+
+            br.readLine(); // skip header
+
+            String line;
+
             while ((line = br.readLine()) != null) {
                 incidents.add(new Incident(line));
             }
@@ -34,7 +39,9 @@ public class MyController implements Controller{
 
         // my JavaScript knowledge is useful here too
         incidents.forEach(incident -> {
-            result.append(incident.toString()).append("\n");
+            if (incident.date.equals(LocalDate.parse(date))){
+                result.append(incident.toString()).append("\n");
+            }
         });
 
         return result.toString();
