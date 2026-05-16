@@ -1,5 +1,8 @@
 package CrimeDispatch;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class ArrayGraph<V, E> implements Graph<V, E> {
 
     public class Vertex<T> {
@@ -8,10 +11,11 @@ public class ArrayGraph<V, E> implements Graph<V, E> {
         public T name;
 
         public Vertex(T name) {
-            this.name = name;
+            setName(name);
         }
 
         public T getName() { return this.name; }
+        public void setName(T name) { this.name = name; }
     }
 
     // Making this a weighted graph
@@ -19,9 +23,25 @@ public class ArrayGraph<V, E> implements Graph<V, E> {
     public class Edge<Weight> { // Making this generic as weight can be many things, e.g. float, int, uint8
 
         Weight distance;
+        V Va;
+        V Vb;
 
-        public Edge(Weight distance) { // Alternatively Va = from, Vb = to
+        public Edge(V Va, V Vb, Weight distance) { // Alternatively Va = from, Vb = to
+            setVertices(Va, Vb);
             this.distance = distance;
+        }
+
+        public Set<V> getVertices() {
+            Set<V> vertices =  new HashSet<>();
+            vertices.add(Va);
+            vertices.add(Vb);
+
+            return vertices;
+        }
+
+        public void setVertices(V Va, V Vb) {
+            this.Va = Va;
+            this.Vb = Vb;
         }
     }
 
