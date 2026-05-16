@@ -1,6 +1,7 @@
 package CrimeDispatch;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class ArrayGraph<V, E> implements Graph<V, E> {
@@ -45,6 +46,7 @@ public class ArrayGraph<V, E> implements Graph<V, E> {
         }
     }
 
+
     @Override
     public void addVertex(V v) {
 
@@ -66,17 +68,17 @@ public class ArrayGraph<V, E> implements Graph<V, E> {
     }
 
     @Override
-    public void containsVertex(V v) {
+    public boolean containsVertex(V v) {
         ;
     }
 
     @Override
-    public void containsEdge(E e) {
+    public boolean containsEdge(E e) {
         ;
     }
 
     @Override
-    public V[] neighbors(V v) {
+    public Set<V> neighbors(V v) {
         return null;
     }
 }

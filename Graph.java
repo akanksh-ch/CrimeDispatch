@@ -1,5 +1,7 @@
 package CrimeDispatch;
 
+import java.util.Set;
+
 public interface Graph<V, E> {
 
     // Add/Remove vertices
@@ -11,9 +13,9 @@ public interface Graph<V, E> {
     void removeEdge(E e);
 
     // Query operations
-    void containsVertex(V v);
-    void containsEdge(E e);
+    boolean containsVertex(V v);
+    boolean containsEdge(E e);
 
     // Traversal operations
-    V[] neighbors(V v);
+    Set<V> neighbors(V v);
 }
