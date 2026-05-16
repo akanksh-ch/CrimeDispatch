@@ -20,39 +20,39 @@ public class ArrayGraph<V, E> implements Graph<V, E> {
 
         Weight distance;
 
-        public Edge(V Va, V Vb, Weight distance) { // Alternatively Va = from, Vb = to
+        public Edge(Weight distance) { // Alternatively Va = from, Vb = to
             this.distance = distance;
         }
     }
 
     @Override
-    public boolean addVertex(V v) {
-        return false;
+    public void addVertex(V v) {
+
     }
 
     @Override
-    public boolean removeVertex(V v) {
-        return false;
+    public void removeVertex(V v) {
+        ;
     }
 
     @Override
-    public boolean addEdge(E e) {
-        return false;
+    public void addEdge(E e) {
+        ;
     }
 
     @Override
-    public boolean removeEdge(E e) {
-        return false;
+    public void removeEdge(E e) {
+        ;
     }
 
     @Override
-    public boolean containsVertex(V v) {
-        return false;
+    public void containsVertex(V v) {
+        ;
     }
 
     @Override
-    public boolean containsEdge(E e) {
-        return false;
+    public void containsEdge(E e) {
+        ;
     }
 
     @Override

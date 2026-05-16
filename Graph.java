@@ -3,16 +3,16 @@ package CrimeDispatch;
 public interface Graph<V, E> {
 
     // Add/Remove vertices
-    boolean addVertex(V v);
-    boolean removeVertex(V v);
+    void addVertex(V v);
+    void removeVertex(V v);
 
     // Add/remove edges
-    boolean addEdge(E e);
-    boolean removeEdge(E e);
+    void addEdge(E e);
+    void removeEdge(E e);
 
     // Query operations
-    boolean containsVertex(V v);
-    boolean containsEdge(E e);
+    void containsVertex(V v);
+    void containsEdge(E e);
 
     // Traversal operations
     V[] neighbors(V v);
