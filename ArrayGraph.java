@@ -47,6 +47,9 @@ public class ArrayGraph<V, E> implements Graph<V, E> {
         }
     }
 
+    Set<V> vertices = new HashSet<>();
+    Set<V> edges = new HashSet<>();
+
     @Override
     public void addVertex(V v) {
 

@@ -4,6 +4,8 @@ import java.util.Set;
 
 public interface Graph<V, E> {
 
+    Set<V> vertices;
+    Set<V> edges;
     // Add/Remove vertices
     void addVertex(V v);
     void removeVertex(V v);
