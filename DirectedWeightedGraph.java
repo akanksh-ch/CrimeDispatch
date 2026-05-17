@@ -150,7 +150,9 @@ public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge, W extends Com
         for(var entry : graph.entrySet()) {
             // Find all outgoing connections
             for (E edge : entry.getValue().outgoing) {
-                result.append(String.format("%s -> %s weight: %,.2f\n", entry.getKey().toString(), edge.getTarget(), edge.getWeight()));
+                // To test with https://graphonline.top/, Create Graph -> Using edge list
+
+                result.append(String.format("%s-(%s)>%s\n", entry.getKey().toString(), edge.getWeightString(), edge.getTarget().toString()));
             }
         }
 
