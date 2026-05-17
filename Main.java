@@ -8,6 +8,6 @@ public class Main {
 
     public static void main(String[] args) {
         //new TUI(new MyController());
-        //System.out.println(new MyController().displayIncidentsByPriority("2026-04-14"));
+        System.out.println(new MyController().displayIncidentsByPriority("2026-04-14"));
     }
 }
