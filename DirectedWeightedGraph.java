@@ -18,7 +18,11 @@ public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge, W> implements
         public Set<E> outgoing = new HashSet<>();
     }
 
-    Map<V, EdgeContainer<E>> graph = new HashMap<>();
+    Map<V, EdgeContainer<E>> graph;
+
+    public DirectedWeightedGraph() {
+        Map<V, EdgeContainer<E>> graph = new HashMap<>();
+    }
 
     public boolean addVertex(V v) {
         if (graph.containsKey(v)) return false;
