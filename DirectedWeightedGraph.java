@@ -88,7 +88,7 @@ public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge> implements Cr
     public boolean removeEdge(E e) {
 
         EdgeContainer sourceContainer = graph.get(e.Va);
-        EdgeContainer targetContainer = graph.get(e.Va);
+        EdgeContainer targetContainer = graph.get(e.Vb);
 
         if (sourceContainer == null || targetContainer == null) {
             return false;
