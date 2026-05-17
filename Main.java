@@ -31,9 +31,12 @@ public class Main {
 
                 dwgraph.addVertex(source);
                 dwgraph.addVertex(target);
-                dwgraph.addEdge()
+                dwgraph.addEdge(new CrimeDispatch.Edge<>(source, target, Double.parseDouble(data[2])));
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+
+        System.out.print(dwgraph.toString());
         }
     }
