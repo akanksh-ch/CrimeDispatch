@@ -102,26 +102,26 @@ public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge> implements Cr
     }
 
     public V getEdgeSource(E e) {
-        return null;
+        return (V) e.getSource(); // should be fine as E extends Edge, type safety!
     }
 
     public V getEdgeTarget(E e) {
-        return null;
+        return (V) e.getTarget(); // same as above
     }
 
     public double getEdgeWeight(E e) {
-        return 0;
+        return (double) e.weight;
     }
 
     public void setEdgeWeight(E e, double weight) {
-
+        e.setWeight(weight);
     }
 
     public Set<E> outgoingEdgesOf(V vertex) {
-        return Set.of();
+        return graph.get(vertex).outgoing;
     }
 
     public Set<E> incomingEdgesOf(V vertex) {
-        return Set.of();
+        return graph.get(vertex).incoming;
     }
 }
