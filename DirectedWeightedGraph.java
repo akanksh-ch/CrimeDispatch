@@ -27,23 +27,40 @@ public class DirectedWeightedGraph<V, E> implements CrimeDispatch.Graph<V, E> {
     Map<V, EdgeContainer<E>> graph = new HashMap<>();
 
     public boolean addVertex(V v) {
-
+        if (graph.containsKey(v)) return false;
+        graph.put(v, new EdgeContainer<>());
+        return true;
     }
 
     public boolean containsVertex(V v) {
-        return false;
+        return graph.containsKey(v);
     }
 
     public Set<V> vertexSet() {
-        return Set.of();
+        return graph.keySet();
     }
 
     public boolean removeVertex(V v) {
+        if (graph.containsKey(v)) {
+            graph.remove(v);
+            return true;
+        }
         return false;
     }
 
     public boolean addEdge(V sourceVertex, V targetVertex, E e) {
-        return false;
+        EdgeContainer<E> sourceEdgeContainer = graph.get(sourceVertex);
+        EdgeContainer<E> targetEdgeContainer = graph.get(targetVertex);
+
+        // check if either vertex is missing before changing anything
+        if (sourceEdgeContainer == null || targetEdgeContainer == null) {
+            return false;
+        }
+
+        // add vertices
+        sourceEdgeContainer.outgoing.add(e);
+        targetEdgeContainer.incoming.add(e);
+        return true;
     }
 
     public boolean containsEdge(E e) {
