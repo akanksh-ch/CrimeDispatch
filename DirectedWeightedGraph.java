@@ -29,7 +29,7 @@ public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge, W extends Com
     Map<V, EdgeContainer<E>> graph;
 
     public DirectedWeightedGraph() {
-        Map<V, EdgeContainer<E>> graph = new HashMap<>();
+        this.graph = new HashMap<>();
     }
 
     public boolean addVertex(V v) {
