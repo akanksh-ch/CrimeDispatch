@@ -17,7 +17,7 @@ public interface WeightedGraph<V, E, W> {
     boolean removeVertex(V v);
 
     // add edge to graph
-    boolean addEdge(V sourceVertex, V targetVertex, E e);
+    boolean addEdge(E e);
 
     // check if edge exists
     boolean containsEdge(E e);
