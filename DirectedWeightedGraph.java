@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge, W> implements CrimeDispatch.WeightedGraph<V, E, W> { // ensuring Edge has neccessary functions despite being generic
+public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge, W extends Comparable<W>> implements CrimeDispatch.WeightedGraph<V, E, W> { // ensuring Edge has neccessary functions despite being generic
 
     // Using helper class to differentiate direction of edges
     public class EdgeContainer<E> {
