@@ -1,6 +1,6 @@
 package CrimeDispatch;
 
-public class Edge<V, W> {
+public class Edge<V, W extends Comparable<W>> {
     public V Va;
     public V Vb;
 
