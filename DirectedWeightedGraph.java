@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge, W> implements CrimeDispatch.Graph<V, E> { // ensuring Edge has neccessary functions despite being generic
+public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge, W> implements CrimeDispatch.WeightedGraph<V, E, W> { // ensuring Edge has neccessary functions despite being generic
 
     private class Vertex<T> {
         public T value;
