@@ -1,9 +1,12 @@
 package CrimeDispatch;
 
+import CrimeDispatch.Dijkstra;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * The entry point for the Birmingham Crime Pattern Analysis & Police Dispatch System.
@@ -38,5 +41,17 @@ public class Main {
         }
 
         System.out.print(dwgraph.toString());
+
+        System.out.print("\n\n\nFindest shortest path from Steelhouse Lane to Acocks Green\n");
+
+        Dijkstra dijkstra = new Dijkstra(dwgraph);
+
+        // Horrible syntax due to not having graph.getVertex(), thinking of implementing it.
+        List<CrimeDispatch.Vertex> path = dijkstra.findShortestRoute(new CrimeDispatch.Vertex("Steelhouse Lane"), new CrimeDispatch.Vertex("Acocks Green"));
+
+        for(CrimeDispatch.Vertex node : path) {
+            System.out.printf("%s -> ", node.toString());
+        }
+        System.out.println();
         }
     }
