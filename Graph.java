@@ -1,4 +1,4 @@
-package crimedispatch;
+package CrimeDispatch;
 
 import org.jgrapht.graph.*;
 import org.jgrapht.util.SupplierUtil;

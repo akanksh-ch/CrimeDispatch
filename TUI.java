@@ -1,4 +1,4 @@
-package crimedispatch;
+package CrimeDispatch;
 
 import java.util.Scanner;
 

@@ -1,4 +1,4 @@
-package crimedispatch;
+package CrimeDispatch;
 
 /**
  * The entry point for the Birmingham Crime Pattern Analysis & Police Dispatch System.
