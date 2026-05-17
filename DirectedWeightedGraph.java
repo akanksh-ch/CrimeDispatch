@@ -58,7 +58,7 @@ public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge> implements Cr
     }
 
     public boolean containsEdge(E e) {
-        return graph.containsKey(e.Va);
+        return graph.containsKey(e.getSource());
     }
 
     public E getEdge(V sourceVertex, V targetVertex) {
@@ -87,8 +87,8 @@ public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge> implements Cr
 
     public boolean removeEdge(E e) {
 
-        EdgeContainer sourceContainer = graph.get(e.Va);
-        EdgeContainer targetContainer = graph.get(e.Vb);
+        EdgeContainer sourceContainer = graph.get(e.getSource());
+        EdgeContainer targetContainer = graph.get(e.getTarget());
 
         if (sourceContainer == null || targetContainer == null) {
             return false;
