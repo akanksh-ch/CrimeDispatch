@@ -58,15 +58,31 @@ public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge> implements Cr
     }
 
     public boolean containsEdge(E e) {
-        return false;
+        return graph.containsValue(e);
     }
 
     public E getEdge(V sourceVertex, V targetVertex) {
-        return null;
+        EdgeContainer<E> sourceContainer = graph.get(sourceVertex);
+        if (sourceContainer == null) { // when edge doesn't exist
+            return null;
+        }
+
+        for (E edge: sourceContainer.outgoing) {
+            if (edge.getTarget().equals(targetVertex)) {
+                return edge;
+            }
+        }
+        return null; // in case if statement doesn't work
     }
 
     public Set<E> edgeSet() {
-        return Set.of();
+        Set<E> allEdges = new HashSet<>();
+
+        for (EdgeContainer container : graph.values()) {
+            allEdges.addAll(container.outgoing); // declines duplicates
+        }
+
+        return allEdges;
     }
 
     public boolean removeEdge(E e) {
