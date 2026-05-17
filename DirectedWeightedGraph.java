@@ -140,4 +140,20 @@ public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge, W extends Com
     public Set<E> incomingEdgesOf(V vertex) {
         return graph.get(vertex).incoming;
     }
+
+    @Override
+    public String toString() {
+
+        StringBuilder result = new StringBuilder();
+
+        // https://stackoverflow.com/a/46908
+        for(var entry : graph.entrySet()) {
+            // Find all outgoing connections
+            for (E edge : entry.getValue().outgoing) {
+                result.append(String.format("%s -> %s weight: %,.2f\n", entry.getKey().toString(), edge.getTarget(), edge.getWeight()));
+            }
+        }
+
+        return result.toString();
+    }
 }
