@@ -68,11 +68,14 @@ public class MyController implements Controller{
     public String dispatchPoliceUnits(String date) {
         // sort by both severity and time
 
-        incidents.sort(Comparator
-                .comparingInt((Incident incident) -> incident.severity).reversed()
-                .thenComparing((incident) -> incident.time, Comparator.reverseOrder())
-                .thenComparing((incident) -> incident.date, Comparator.reverseOrder())
-        );
+        List<Incident> sortedIncidents = new ArrayList<>(incidents.stream()
+                .sorted(
+                        Comparator
+                                .comparingInt((Incident incident) -> incident.severity).reversed()
+                                .thenComparing((incident) -> incident.time, Comparator.reverseOrder())
+                                .thenComparing((incident) -> incident.date, Comparator.reverseOrder())
+                )
+                .toList());
         return "";
     }
 
