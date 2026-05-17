@@ -7,6 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class MyController implements Controller{
 
@@ -89,7 +90,7 @@ public class MyController implements Controller{
 
         for (Incident incident : incidents) {
             if (!hotspots.containsKey(incident.location)) { // if starting from null
-                hotspots.put(incident.location, 0);
+                hotspots.put(incident.location, 1); // intialise to 1
             } else {
                 hotspots.put(incident.location, hotspots.get(incident.location) + 1); // Increment counter
             }
@@ -117,6 +118,18 @@ public class MyController implements Controller{
 
 
         // print table
-        return "";
+
+        result.append("Crime Hotspot Analysis by District (" + date + ")\n");
+        result.append("District\tTotal Incidents\t Recent Incidents (Last 3, Recent first)\n");
+
+        for (String location : hotspots.keySet()) {
+            result.append(String.format("%s\t%d\t%s\n",
+                    location,
+                    hotspots.get(location),
+                    last3incidents.get(location).stream().map(incident -> incident.id).collect(Collectors.joining(", ", "(", ")"))
+            ));
+        }
+
+        return result.toString();
     }
 }
