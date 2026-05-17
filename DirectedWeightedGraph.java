@@ -7,15 +7,15 @@ import java.util.Set;
 
 public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge, W> implements CrimeDispatch.WeightedGraph<V, E, W> { // ensuring Edge has neccessary functions despite being generic
 
-    private class Vertex<T> {
-        public T value;
-        public Vertex(T value) { this.value = value;}
-    }
-
     // Using helper class to differentiate direction of edges
     public class EdgeContainer<E> {
-        public Set<E> incoming = new HashSet<>();
-        public Set<E> outgoing = new HashSet<>();
+        Set<E> incoming = new HashSet<>();
+        Set<E> outgoing = new HashSet<>();
+
+        public EdgeContainer(E incomingEdge, E outgoingEdge) {
+            incoming.add(incomingEdge);
+            outgoing.add(outgoingEdge);
+        }
     }
 
     Map<V, EdgeContainer<E>> graph;
@@ -46,18 +46,14 @@ public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge, W> implements
         return false;
     }
 
-    public boolean addEdge(V sourceVertex, V targetVertex, E e) {
-        EdgeContainer<E> sourceEdgeContainer = graph.get(sourceVertex);
-        EdgeContainer<E> targetEdgeContainer = graph.get(targetVertex);
-
-        // check if either vertex is missing before changing anything
-        if (sourceEdgeContainer == null || targetEdgeContainer == null) {
+    public boolean addEdge(E e) {
+       // check if either vertex is missing before changing anything
+        if (!graph.containsKey(e.getSource()) || !graph.containsKey(e.getTarget())) {
             return false;
         }
 
-        // add vertices
-        sourceEdgeContainer.outgoing.add(e);
-        targetEdgeContainer.incoming.add(e);
+        graph.put(e.getSource(), new EdgeContainer<>())
+
         return true;
     }
 

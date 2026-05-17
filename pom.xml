@@ -35,6 +35,8 @@
                     <includes>
                         <include>CrimeDispatch/*.java</include>
                     </includes>
+                    <source>25</source>
+                    <target>25</target>
                 </configuration>
             </plugin>
 
