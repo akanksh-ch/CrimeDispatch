@@ -1,5 +1,7 @@
 package CrimeDispatch;
 
+import CrimeDispatch.Incident;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -80,9 +82,39 @@ public class MyController implements Controller{
 
     @Override
     public String analyseCrimeHotspots(String date) {
+        StringBuilder result = new StringBuilder();
+
         // Make a hashmap of Location(string) and incidents(int) and insert all incidents, resulting in popularity hashmap
+        Map<String, Integer> hotspots = new HashMap<>();
+
+        for (Incident incident : incidents) {
+            if (!hotspots.containsKey(incident.location)) { // if starting from null
+                hotspots.put(incident.location, 0);
+            } else {
+                hotspots.put(incident.location, hotspots.get(incident.location) + 1); // Increment counter
+            }
+        }
 
         // gather latest 3 incidents from every location (keys)
+
+        // sort incidents
+        List<Incident> sortedIncidents = new ArrayList<>(incidents.stream()
+                .sorted(
+                        Comparator.comparing((Incident incident) -> incident.location)
+                                .thenComparing(incident -> incident.date, Comparator.reverseOrder())
+                                .thenComparing(incident -> incident.time, Comparator.reverseOrder())
+                )
+                .toList());
+
+        Map<String, List<Incident>> last3incidents = new HashMap<>();
+
+        for (Incident incident : sortedIncidents) {
+            List<Incident> list = last3incidents.computeIfAbsent(incident.location, key -> new ArrayList<>());
+            if (list.size() < 3) {
+                list.add(incident);
+            }
+        }
+
 
         // print table
         return "";
