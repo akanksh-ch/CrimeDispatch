@@ -24,7 +24,7 @@ public class Edge<V, W extends Comparable<W>> {
         return weight;
     }
 
-    public W getWeightString() {
+    public String getWeightString() {
         return weight.toString();
     }
 
