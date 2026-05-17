@@ -5,17 +5,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class DirectedWeightedGraph<V, E> implements CrimeDispatch.Graph<V, E> {
+public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge> implements CrimeDispatch.Graph<V, E> { // ensuring Edge has neccessary functions despite being generic
 
     private class Vertex<T> {
         public T value;
-    }
-
-    private class Edge<V, W> {
-        public V Va;
-        public V Vb;
-
-        public W weight; // Weight can be generic, e.g. double, int, etc.
+        public Vertex(T value) { this.value = value;}
     }
 
     // Using helper class to differentiate direction of edges
