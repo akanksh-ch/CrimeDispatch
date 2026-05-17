@@ -43,6 +43,12 @@ public class Graph {
             e.printStackTrace();
         }
 
-        System.out.println(road_network);
+        for (DefaultWeightedEdge edge : road_network.edgeSet()) {
+            String source = road_network.getEdgeSource(edge);
+            String target = road_network.getEdgeTarget(edge);
+            double weight = road_network.getEdgeWeight(edge);
+
+            System.out.println(source + " -> " + target + " : " + weight);
+        }
     }
 }
