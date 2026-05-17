@@ -1,4 +1,4 @@
-package CrimeDispatch;
+package crimedispatch;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

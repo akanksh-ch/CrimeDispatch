@@ -1,4 +1,4 @@
-package CrimeDispatch;
+package crimedispatch;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

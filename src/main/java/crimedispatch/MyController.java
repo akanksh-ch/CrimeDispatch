@@ -1,4 +1,4 @@
-package CrimeDispatch;
+package crimedispatch;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -16,7 +16,7 @@ public class MyController implements Controller{
 
         this.incidents = new ArrayList<>();
 
-        try (BufferedReader br = new BufferedReader(new FileReader("data/crime_incidents.csv"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(Main.class.getResource("/crime_incidents.csv").getFile()))) {
 
             br.readLine(); // skip header
 
