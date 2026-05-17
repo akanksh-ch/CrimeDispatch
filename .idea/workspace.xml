@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="192569f5-bc4c-4c77-8df7-a7ae622904fb" name="Changes" comment="Updated Graph interface">
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DirectedWeightedGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/DirectedWeightedGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/MyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/Utility.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
