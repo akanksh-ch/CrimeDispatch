@@ -58,7 +58,7 @@ public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge> implements Cr
     }
 
     public boolean containsEdge(E e) {
-        return graph.containsValue(e);
+        return graph.containsKey(e.Va);
     }
 
     public E getEdge(V sourceVertex, V targetVertex) {
