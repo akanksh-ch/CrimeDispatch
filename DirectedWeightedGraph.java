@@ -55,12 +55,20 @@ public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge, W extends Com
     }
 
     public boolean addEdge(E e) {
-       // check if either vertex is missing before changing anything
+        if (e == null) return false; // Can't add empty Edge
+
+        // Check if vertices are valid
         if (!graph.containsKey(e.getSource()) || !graph.containsKey(e.getTarget())) {
             return false;
         }
 
-        graph.put(e.getSource(), new EdgeContainer<>())
+        // insert them
+        EdgeContainer<E> sourceContainer = graph.get(e.getSource());
+        EdgeContainer<E> targetContainer = graph.get(e.getTarget());
+
+        // update edge data
+        sourceContainer.outgoing.add(e); // The edge leaves the source
+        targetContainer.incoming.add(e); // The edge enters the target
 
         return true;
     }
