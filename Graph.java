@@ -1,48 +1,52 @@
 package CrimeDispatch;
 
-import org.jgrapht.graph.*;
-import org.jgrapht.util.SupplierUtil;
+import java.util.Set;
 
-import java.io.*;
-import java.util.Scanner;
-import java.util.function.Supplier;
+public interface Graph<V, E> {
 
-public class Graph {
+    // add vertex to graph
+    boolean addVertex(V v);
 
-    public static void main(String[] args) {
+    // check if vertex exists
+    boolean containsVertex(V v);
 
-        Supplier<String> vertexSupplier = SupplierUtil.createStringSupplier();
-        Supplier<DefaultWeightedEdge> edgeSupplier = DefaultWeightedEdge::new;
+    // get all vertices
+    Set<V> vertexSet();
 
-        DefaultDirectedWeightedGraph<String, DefaultWeightedEdge> road_network =
-                new DefaultDirectedWeightedGraph<>(vertexSupplier, edgeSupplier);
+    // remove vertex from graph
+    boolean removeVertex(V v);
 
-        File road_network_file = new File(
-                Graph.class.getResource("/road_network.csv").getFile()
-        );
+    // add edge to graph
+    boolean addEdge(V sourceVertex, V targetVertex, E e);
 
-        try (Scanner reader = new Scanner(road_network_file)) {
-            reader.nextLine(); // skips csv header
+    // check if edge exists
+    boolean containsEdge(E e);
 
-            while (reader.hasNextLine()) {
-                String[] data_split = reader.nextLine().split(",");
+    // find edge between two vertices
+    E getEdge(V sourceVertex, V targetVertex);
 
-                String Va = data_split[0];
-                String Vb = data_split[1];
-                double weight = Double.parseDouble(data_split[2]);
+    // get all edges
+    Set<E> edgeSet();
 
-                road_network.addVertex(Va);
-                road_network.addVertex(Vb);
+    // remove edge from graph
+    boolean removeEdge(E e);
 
-                DefaultWeightedEdge edge = road_network.addEdge(Va, Vb);
-                road_network.setEdgeWeight(edge, weight);
-            }
+    // get where the edge starts
+    V getEdgeSource(E e);
 
-        } catch (FileNotFoundException e) {
-            System.out.println("Error occurred while reading file");
-            e.printStackTrace();
-        }
+    // get where the edge ends
+    V getEdgeTarget(E e);
 
-        System.out.println(road_network);
-    }
+    // get edge weight
+    double getEdgeWeight(E e);
+
+    // set edge weight
+    void setEdgeWeight(E e, double weight);
+
+    // get edges pointing away from vertex
+    Set<E> outgoingEdgesOf(V vertex);
+
+    // get edges pointing towards vertex
+    Set<E> incomingEdgesOf(V vertex);
+
 }
