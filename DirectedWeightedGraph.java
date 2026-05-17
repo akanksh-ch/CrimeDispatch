@@ -9,12 +9,20 @@ public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge, W extends Com
 
     // Using helper class to differentiate direction of edges
     public class EdgeContainer<E> {
-        Set<E> incoming = new HashSet<>();
-        Set<E> outgoing = new HashSet<>();
 
+        // Using final to prevent funky business with initialisation
+        public final Set<E> incoming = new HashSet<>();
+        public final Set<E> outgoing = new HashSet<>();
+
+        // Add to edges
         public EdgeContainer(E incomingEdge, E outgoingEdge) {
             incoming.add(incomingEdge);
             outgoing.add(outgoingEdge);
+        }
+
+        // Do not add anything if not mentioned (e.g. in case when vertexes are initialised without edges made)
+        public EdgeContainer() {
+
         }
     }
 
