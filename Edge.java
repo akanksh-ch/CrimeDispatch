@@ -24,7 +24,7 @@ public class Edge<V, W> {
         return weight;
     }
 
-    public W setWeight(double weight) {
+    public void setWeight(double weight) {
         this.weight = this.weight;
     }
 }
