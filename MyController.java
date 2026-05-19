@@ -87,24 +87,6 @@ public class MyController implements Controller{
 
     @Override
     public String dispatchPoliceUnits(String date) {
-        // Load police units into memory
-
-        this.policeUnits = new ArrayList<>();
-
-        try (BufferedReader br = new BufferedReader(new FileReader("data/police_units.csv"))) {
-
-            br.readLine(); // skip header
-
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                policeUnits.add(new PoliceUnit(line));
-            }
-
-            br.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         // sort by both severity and time
 
         List<Incident> sortedIncidents = new ArrayList<>(incidents.stream()
@@ -115,8 +97,41 @@ public class MyController implements Controller{
                                 .thenComparing((incident) -> incident.date, Comparator.reverseOrder())
                 )
                 .toList());
-        return "";
-    }
+
+        // Process assignments using least-loaded strategy
+
+        StringBuilder result = new StringBuilder();
+
+        result.append("Police Unit Dispatch (").append(date).append(")\n");
+        result.append("Incident ID\tLocation\tDistrict\tCrime Type\tSev\tDate\tTime\tAssigned Unit (ID\tName\tStatus\tCurrent Loc\tMaxCap\tLoad)\n");
+
+        for (Incident incident : sortedIncidents) {
+            PoliceUnit bestTargetUnit = null;
+            int minLoad = Integer.MAX_VALUE;
+
+            // Find the available unit with the lowest current workload
+            for (PoliceUnit unit : policeUnits) {
+                if (unit.status.equalsIgnoreCase("Yes") && unit.incidentsHandled < unit.maxCapacity) {
+                    if (unit.incidentsHandled < minLoad) {
+                        minLoad = unit.incidentsHandled;
+                        bestTargetUnit = unit;
+                    }
+                }
+            }
+
+            // Assign unit or add to waiting list if all are full
+            if (bestTargetUnit != null) {
+                bestTargetUnit.incidentsHandled++;
+
+                // Using your string appending rules seamlessly paired with your new toString formats
+                result.append(incident.toString()).append("\t")
+                        .append(bestTargetUnit.toString()).append("\n");
+            }
+
+        }
+
+        return result.toString();
+    };
 
     @Override
     public String findShortestPatrolRoute(String crimeLocation) {
