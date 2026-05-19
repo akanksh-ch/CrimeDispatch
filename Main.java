@@ -57,5 +57,7 @@ public class Main {
         System.out.println();
 
         // System.out.print(new CrimeDispatch.MyController().analyseCrimeHotspots("2026-04-14"));
+
+        System.out.print(new CrimeDispatch.MyController().dispatchPoliceUnits("2026-04-14"));
         }
     }
