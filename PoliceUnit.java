@@ -1,23 +1,21 @@
 package CrimeDispatch;
 
 public class PoliceUnit {
-    public String id;
-    public String name;
-    public String status;
-    public int maxCapacity;
-
-    // To track incidents handled by this police unit
-    public int incidentsHandled;
+    String id;
+    String name;
+    String status;
+    String current_location;
+    int maxCapacity;
+    int incidentsHandled;
 
     public PoliceUnit(String policeUnit) {
         String[] items = policeUnit.split(",");
 
-        this.id = items[0].trim();
-        this.name = items[1].trim();
-        this.status = items[2].trim();
-        this.maxCapacity = Integer.parseInt(items[3].trim());
-
-        // Initialised to 0 when loaded fresh from memory file
+        this.id = items[0];
+        this.name = items[1];
+        this.status = items[2];
+        this.current_location = items[3];
+        this.maxCapacity = Integer.parseInt(items[4]);
         this.incidentsHandled = 0;
     }
 
@@ -26,6 +24,7 @@ public class PoliceUnit {
         return id + "\t" +
                 name + "\t" +
                 status + "\t" +
+                current_location + "\t" +
                 maxCapacity + "\t" +
                 incidentsHandled;
     }
