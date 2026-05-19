@@ -34,6 +34,26 @@ public class MyController implements Controller{
             throw new RuntimeException(e);
         }
 
+
+        // Initialise the police units as well
+
+        this.policeUnits = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader("data/police_units.csv"))) {
+
+            br.readLine(); // skip header
+
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                policeUnits.add(new PoliceUnit(line));
+            }
+
+            br.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @Override
