@@ -21,7 +21,7 @@ public class Main {
         // Load graph
 
         // Initialised graph
-        CrimeDispatch.DirectedWeightedGraph<CrimeDispatch.Vertex, CrimeDispatch.Edge, Double> dwgraph = new CrimeDispatch.DirectedWeightedGraph();
+        CrimeDispatch.DirectedWeightedGraph<CrimeDispatch.Vertex<String>, CrimeDispatch.Edge, Double> dwgraph = new CrimeDispatch.DirectedWeightedGraph();
 
         try (BufferedReader br = new BufferedReader(new FileReader("data/road_network.csv"))) {
             br.readLine(); // Skips header
@@ -42,18 +42,20 @@ public class Main {
 
         System.out.print(dwgraph.toString());
 
-        System.out.print("\n\n\nFindest shortest path from Steelhouse Lane to Acocks Green\n");
+        System.out.print("\n\n\nFindest shortest path from Steelhouse Lane to Sparkhill\n");
 
         Dijkstra dijkstra = new Dijkstra(dwgraph);
 
-        // Horrible syntax due to not having graph.getVertex(), thinking of implementing it.
-        List<CrimeDispatch.Vertex> path = dijkstra.findShortestRoute(new CrimeDispatch.Vertex("Steelhouse Lane"), new CrimeDispatch.Vertex("Acocks Green"));
+        List<CrimeDispatch.Vertex> path = dijkstra.findShortestRoute(
+                dwgraph.getVertex("Steelhouse Lane"),
+                dwgraph.getVertex("Sparkhill")
+        );
 
         for(CrimeDispatch.Vertex node : path) {
             System.out.printf("%s -> ", node.toString());
         }
         System.out.println();
 
-        System.out.print(new CrimeDispatch.MyController().analyseCrimeHotspots("2026-04-14"));
+        // System.out.print(new CrimeDispatch.MyController().analyseCrimeHotspots("2026-04-14"));
         }
     }
