@@ -28,7 +28,7 @@ public class Dijkstra<V extends CrimeDispatch.Vertex, E extends CrimeDispatch.Ed
 
     public List<CrimeDispatch.Vertex> findShortestRoute(V from, V to) {
         Map<CrimeDispatch.Vertex, Double> dist = new HashMap<>(); // distance between source and 'u' vertex
-        Map<CrimeDispatch.Vertex, Double> prev = new HashMap<>(); // previously found solutions
+        Map<CrimeDispatch.Vertex, CrimeDispatch.Vertex> prev = new HashMap<>(); // previously found solutions
         // Using priority queue to sort through which is the shortest path node/vertex
         PriorityQueue<PathNode> toExplore = new PriorityQueue<>(); // unexplored vertices
 
