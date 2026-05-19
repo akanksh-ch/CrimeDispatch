@@ -57,7 +57,7 @@ public class Dijkstra<V extends CrimeDispatch.Vertex, E extends CrimeDispatch.Ed
 
             // go through all neighbors and update prev and dist
             for (E edge : graph.outgoingEdgesOf(u)) {
-                V v = (V) edge.getTarget();
+                V v = edge.getTarget();
 
                 double alt  = dist.get(u) + graph.getEdgeWeight(edge);
 
@@ -71,6 +71,16 @@ public class Dijkstra<V extends CrimeDispatch.Vertex, E extends CrimeDispatch.Ed
                 }
             }
         }
-        return new ArrayList<>();
+
+        // return path
+        List<CrimeDispatch.Vertex> path = new ArrayList<>();
+
+        CrimeDispatch.Vertex current = to; // go in reverse
+        while(current != null) {
+            path.addFirst(current); // add to the start of path
+            current = prev.get(current); // grabs previous node
+        }
+
+        return path;
     }
 }
