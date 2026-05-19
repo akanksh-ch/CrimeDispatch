@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 public class MyController implements Controller{
 
     ArrayList<Incident> incidents;
+    ArrayList<CrimeDispatch.PoliceUnit> policeUnits;
 
     public MyController(){
         // Load incidents into memory
@@ -66,6 +67,24 @@ public class MyController implements Controller{
 
     @Override
     public String dispatchPoliceUnits(String date) {
+        // Load police units into memory
+
+        this.policeUnits = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader("data/police_units.csv"))) {
+
+            br.readLine(); // skip header
+
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                policeUnits.add(new PoliceUnit(line));
+            }
+
+            br.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         // sort by both severity and time
 
         List<Incident> sortedIncidents = new ArrayList<>(incidents.stream()
