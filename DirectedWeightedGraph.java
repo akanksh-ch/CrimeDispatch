@@ -38,6 +38,18 @@ public class DirectedWeightedGraph<V,E extends CrimeDispatch.Edge, W extends Com
         return true;
     }
 
+    public V getVertex(String name) {
+        // loop through all the vertexes which fit the name O(N)
+
+        for (V vertex : graph.keySet()) {
+            if(vertex.toString().equals(name)) {
+                return vertex;
+            }
+        }
+
+        return null; // In case it's not found
+    }
+
     public boolean containsVertex(V v) {
         return graph.containsKey(v);
     }
