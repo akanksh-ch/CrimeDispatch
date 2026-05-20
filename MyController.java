@@ -16,12 +16,12 @@ import java.util.stream.Collectors;
  */
 public class MyController implements Controller {
 
-    // Internal object registry stores for managing systemic database lookups
+    // Initialise all object storage
     ArrayList<Incident> incidents;
     ArrayList<CrimeDispatch.PoliceUnit> policeUnits;
     ArrayList<CrimeDispatch.PoliceStation> policeStations;
-    CrimeDispatch.DirectedWeightedGraph<CrimeDispatch.Vertex<String>, CrimeDispatch.Edge, Double> dwgraph;
-    CrimeDispatch.Dijkstra dijkstra;
+    CrimeDispatch.DirectedWeightedGraph<CrimeDispatch.Vertex<String>, CrimeDispatch.Edge<CrimeDispatch.Vertex<String>, Double>, Double> dwgraph;
+    CrimeDispatch.Dijkstra<CrimeDispatch.Vertex<String>, CrimeDispatch.Edge<CrimeDispatch.Vertex<String>, Double>, Double> dijkstra;
 
     /**
      * Initializes systemic parameters and pipelines the ingestion parsing configuration algorithms.
@@ -79,7 +79,7 @@ public class MyController implements Controller {
         }
 
         // Load graph
-        this.dwgraph = new CrimeDispatch.DirectedWeightedGraph();
+        this.dwgraph = new CrimeDispatch.DirectedWeightedGraph<>();
         Map<String, CrimeDispatch.Vertex<String>> vertexCache = new HashMap<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader("data/road_network.csv"))) {
@@ -102,8 +102,7 @@ public class MyController implements Controller {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        this.dijkstra = new CrimeDispatch.Dijkstra(dwgraph);
+        this.dijkstra = new CrimeDispatch.Dijkstra<>(dwgraph); //
     }
 
     @Override
@@ -194,10 +193,14 @@ public class MyController implements Controller {
             return "Error: The location '" + crimeLocation + "' does not exist in the road network.\n";
         }
 
-        List<CrimeDispatch.Vertex> bestPath = null;
+        // Properly parameterized to match the clean types and fix the assignment error
+        List<CrimeDispatch.Vertex<String>> bestPath = null;
         String bestStationName = "";
         double minDistance = Double.MAX_VALUE;
-        CrimeDispatch.Dijkstra dijkstraEngine = new CrimeDispatch.Dijkstra(dwgraph);
+
+        // Explicit diamond types applied to lock type-safety with the graph definition
+        CrimeDispatch.Dijkstra<CrimeDispatch.Vertex<String>, CrimeDispatch.Edge<CrimeDispatch.Vertex<String>, Double>, Double> dijkstraEngine =
+                new CrimeDispatch.Dijkstra<>(dwgraph);
 
         // 2. Scan all stations to locate the mathematically nearest starting point
         for (PoliceStation station : policeStations) {
@@ -206,7 +209,8 @@ public class MyController implements Controller {
                 continue;
             }
 
-            List<CrimeDispatch.Vertex> currentPath = dijkstraEngine.findShortestRoute(stationVertex, targetVertex);
+            // Using explicit type variables to fetch the route path smoothly
+            List<CrimeDispatch.Vertex<String>> currentPath = dijkstraEngine.findShortestRoute(stationVertex, targetVertex);
 
             // Ensure a valid path was found back to the target node
             if (currentPath != null && currentPath.size() >= 2
@@ -245,7 +249,7 @@ public class MyController implements Controller {
         return result.toString();
     }
 
-    @Override
+   @Override
     public String analyseCrimeHotspots(String date) {
         StringBuilder result = new StringBuilder();
         LocalDate targetDate = LocalDate.parse(date);

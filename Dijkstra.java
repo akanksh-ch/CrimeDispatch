@@ -50,14 +50,11 @@ public class Dijkstra<V extends CrimeDispatch.Vertex, E extends CrimeDispatch.Ed
      * @param to   The destination node target.
      * @return A sequential list tracking the optimal travel vertex sequence.
      */
-    public List<CrimeDispatch.Vertex> findShortestRoute(V from, V to) {
-        Map<CrimeDispatch.Vertex, Double> dist = new HashMap<>();
-        // distance between source and 'u' vertex
-        Map<CrimeDispatch.Vertex, CrimeDispatch.Vertex> prev = new HashMap<>();
-        // previously found solutions
-        // Using priority queue to sort through which is the shortest path node/vertex
+    public List<V> findShortestRoute(V from, V to) {
+        // Correctly typed tracking maps to eliminate unchecked casts
+        Map<V, Double> dist = new HashMap<>();
+        Map<V, V> prev = new HashMap<>();
         PriorityQueue<PathNode> toExplore = new PriorityQueue<>();
-        // unexplored vertices
 
         // Initialise all vertices
         for (V vertex : graph.vertexSet()) {
@@ -66,7 +63,6 @@ public class Dijkstra<V extends CrimeDispatch.Vertex, E extends CrimeDispatch.Ed
 
         // set distance from source to be 0
         dist.replace(from, 0.0);
-        // Add source node as starting node
         toExplore.add(new PathNode(from, 0.0));
 
         while (!toExplore.isEmpty()) {
@@ -96,14 +92,12 @@ public class Dijkstra<V extends CrimeDispatch.Vertex, E extends CrimeDispatch.Ed
             }
         }
 
-        // return path
-        List<CrimeDispatch.Vertex> path = new ArrayList<>();
-        CrimeDispatch.Vertex current = to; // go in reverse
+        // return path — completely clean and type-safe without internal casting warnings
+        List<V> path = new ArrayList<>();
+        V current = to; // go in reverse
         while(current != null) {
             path.addFirst(current);
-            // add to the start of path
             current = prev.get(current);
-            // grabs previous node
         }
 
         return path;
@@ -115,16 +109,16 @@ public class Dijkstra<V extends CrimeDispatch.Vertex, E extends CrimeDispatch.Ed
      * @param path The ordered vertex collection list representing the route.
      * @return The aggregated weight total representing complete travel path distance.
      */
-    public double getRouteDistance(List<CrimeDispatch.Vertex> path) {
+    public double getRouteDistance(List<V> path) {
         if (path == null || path.size() < 2) {
             return 0.0;
         }
         double totalDistance = 0.0;
         for (int i = 0; i < path.size() - 1; i++) {
             // Use your graph's built-in structural lookup
-            CrimeDispatch.Edge edge = graph.getEdge((V) path.get(i), (V) path.get(i + 1));
+            E edge = graph.getEdge(path.get(i), path.get(i + 1));
             if (edge != null) {
-                totalDistance += graph.getEdgeWeight((E) edge);
+                totalDistance += graph.getEdgeWeight(edge);
             }
         }
         return totalDistance;

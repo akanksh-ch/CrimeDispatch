@@ -11,7 +11,7 @@ import java.util.Set;
  * @author Akanksh Chitimalla
  * @version 20/05/2026
  */
-public class DirectedWeightedGraph<V, E extends CrimeDispatch.Edge, W extends Comparable<W>> implements CrimeDispatch.WeightedGraph<V, E, W> {
+public class DirectedWeightedGraph<V, E extends CrimeDispatch.Edge<V, W>, W extends Comparable<W>> implements CrimeDispatch.WeightedGraph<V, E, W> {
 
     /**
      * Internal data structure to house separate tracking configurations for incoming and outgoing graph edges.
@@ -120,7 +120,7 @@ public class DirectedWeightedGraph<V, E extends CrimeDispatch.Edge, W extends Co
 
     public Set<E> edgeSet() {
         Set<E> allEdges = new HashSet<>();
-        for (EdgeContainer container : graph.values()) {
+        for (EdgeContainer<E> container : graph.values()) {
             allEdges.addAll(container.outgoing);
             // declines duplicates
         }
@@ -128,8 +128,8 @@ public class DirectedWeightedGraph<V, E extends CrimeDispatch.Edge, W extends Co
     }
 
     public boolean removeEdge(E e) {
-        EdgeContainer sourceContainer = graph.get(e.getSource());
-        EdgeContainer targetContainer = graph.get(e.getTarget());
+        EdgeContainer<E> sourceContainer = graph.get(e.getSource());
+        EdgeContainer<E> targetContainer = graph.get(e.getTarget());
 
         if (sourceContainer == null || targetContainer == null) {
             return false;
@@ -143,17 +143,15 @@ public class DirectedWeightedGraph<V, E extends CrimeDispatch.Edge, W extends Co
     }
 
     public V getEdgeSource(E e) {
-        return (V) e.getSource();
-        // should be fine as E extends Edge, type safety!
+        return e.getSource();
     }
 
     public V getEdgeTarget(E e) {
-        return (V) e.getTarget();
-        // same as above
+        return e.getTarget();
     }
 
     public double getEdgeWeight(E e) {
-        return (double) e.weight;
+        return Double.parseDouble(e.weight.toString());
     }
 
     public void setEdgeWeight(E e, W weight) {
