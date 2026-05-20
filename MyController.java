@@ -7,30 +7,38 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Central business logic coordinator implementing core functionalities for the
+ * Birmingham Crime Pattern Analysis & Police Dispatch System.
+ *
+ * @author Akanksh Chitimalla
+ * @version 20/05/2026
+ */
 public class MyController implements Controller {
 
+    // Internal object registry stores for managing systemic database lookups
     ArrayList<Incident> incidents;
     ArrayList<CrimeDispatch.PoliceUnit> policeUnits;
     ArrayList<CrimeDispatch.PoliceStation> policeStations;
     CrimeDispatch.DirectedWeightedGraph<CrimeDispatch.Vertex<String>, CrimeDispatch.Edge, Double> dwgraph;
     CrimeDispatch.Dijkstra dijkstra;
 
+    /**
+     * Initializes systemic parameters and pipelines the ingestion parsing configuration algorithms.
+     */
     public MyController() {
         // Load incidents into memory
         this.incidents = new ArrayList<>();
-
         try (BufferedReader br = new BufferedReader(new FileReader("data/crime_incidents.csv"))) {
-
-            br.readLine(); // skip header
+            br.readLine();
+            // skip header
 
             String line;
-
             while ((line = br.readLine()) != null) {
                 if (!line.trim().isEmpty()) {
                     incidents.add(new Incident(line));
                 }
             }
-
             br.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -38,19 +46,16 @@ public class MyController implements Controller {
 
         // Initialise the police units as well
         this.policeUnits = new ArrayList<>();
-
         try (BufferedReader br = new BufferedReader(new FileReader("data/police_units.csv"))) {
-
-            br.readLine(); // skip header
+            br.readLine();
+            // skip header
 
             String line;
-
             while ((line = br.readLine()) != null) {
                 if (!line.trim().isEmpty()) {
                     policeUnits.add(new PoliceUnit(line));
                 }
             }
-
             br.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -58,19 +63,16 @@ public class MyController implements Controller {
 
         // Initialise the police stations as well
         this.policeStations = new ArrayList<>();
-
         try (BufferedReader br = new BufferedReader(new FileReader("data/police_stations.csv"))) {
-
-            br.readLine(); // skip header
+            br.readLine();
+            // skip header
 
             String line;
-
             while ((line = br.readLine()) != null) {
                 if (!line.trim().isEmpty()) {
                     policeStations.add(new PoliceStation(line));
                 }
             }
-
             br.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -81,9 +83,9 @@ public class MyController implements Controller {
         Map<String, CrimeDispatch.Vertex<String>> vertexCache = new HashMap<>();
 
         try (BufferedReader br = new BufferedReader(new FileReader("data/road_network.csv"))) {
-            br.readLine(); // Skips header
+            br.readLine();
+            // Skips header
             String line;
-
             while((line = br.readLine()) != null) {
                 String[] data = line.split(",");
                 String sourceName = data[0].trim();
@@ -106,10 +108,8 @@ public class MyController implements Controller {
 
     @Override
     public String displayIncidentsByPriority(String date) {
-        // sort by severity
-        // using https://www.geeksforgeeks.org/java/java-comparator-interface/
+        // sort by severity using Java Comparator interface definitions
         incidents.sort(Comparator
-                // refer https://docs.oracle.com/javase/8/docs/api/java/util/Comparator.html#comparingInt-java.util.function.ToIntFunction-
                 .comparingInt((Incident incident) -> incident.severity).reversed()
                 .thenComparing((incident) -> incident.time));
 
@@ -119,19 +119,14 @@ public class MyController implements Controller {
         // Display header
         result.append("High priority crime incidents\n\n");
         result.append("Rank ID\tLocation\tDistrict\tCrime Type\tSev Date\tTime\n");
-
         int rankCounter = 1;
         for(int i = 0; i < incidents.size(); i ++){
-
             if (incidents.get(i).date.equals(LocalDate.parse(date))){
-
                 result.append(String.format("%d\t", rankCounter++)) // Incident rank
                         .append(incidents.get(i).toString()) // Full incident details
                         .append("\n"); // New line
-
             }
         };
-
         return result.toString();
     }
 
@@ -149,12 +144,10 @@ public class MyController implements Controller {
 
         // Process assignments using least-loaded strategy
         StringBuilder result = new StringBuilder();
-
         result.append("Police Unit Dispatch (").append(date).append(")\n");
         result.append("Incident ID\tLocation\tDistrict\tCrime Type\tSev\tDate\tTime\tAssigned Unit (ID\tName\tStatus\tCurrent Loc\tMaxCap\tLoad)\n");
 
         List<Incident> waitingList = new ArrayList<>();
-
         for (Incident incident : sortedIncidents) {
             PoliceUnit bestTargetUnit = null;
             int minLoad = Integer.MAX_VALUE;
@@ -172,7 +165,6 @@ public class MyController implements Controller {
             // Assign unit or add to waiting list if all are full
             if (bestTargetUnit != null) {
                 bestTargetUnit.incidentsHandled++;
-
                 // Using your string appending rules seamlessly paired with your new toString formats
                 result.append(incident.toString()).append("\t")
                         .append(bestTargetUnit.toString()).append("\n");
@@ -191,7 +183,6 @@ public class MyController implements Controller {
                 result.append(waitingIncident.toString()).append("\n");
             }
         }
-
         return result.toString();
     }
 
@@ -206,7 +197,6 @@ public class MyController implements Controller {
         List<CrimeDispatch.Vertex> bestPath = null;
         String bestStationName = "";
         double minDistance = Double.MAX_VALUE;
-
         CrimeDispatch.Dijkstra dijkstraEngine = new CrimeDispatch.Dijkstra(dwgraph);
 
         // 2. Scan all stations to locate the mathematically nearest starting point
@@ -243,7 +233,6 @@ public class MyController implements Controller {
         result.append("Crime Location:         ").append(crimeLocation).append("\n");
         result.append("Nearest Police Station: ").append(bestStationName).append("\n");
         result.append("Route:                  ");
-
         for (int i = 0; i < bestPath.size(); i++) {
             result.append(bestPath.get(i).toString());
             if (i < bestPath.size() - 1) {
@@ -269,8 +258,7 @@ public class MyController implements Controller {
             }
         }
 
-        // gather latest 3 incidents from every location (keys)
-        // sort incidents
+        // gather latest 3 incidents from every location (keys) and sort incidents
         List<Incident> sortedIncidents = new ArrayList<>(incidents.stream()
                 .filter(incident -> incident.date.equals(targetDate))
                 .sorted(
@@ -302,7 +290,6 @@ public class MyController implements Controller {
             String recentIds = last3incidents.containsKey(location)
                     ? last3incidents.get(location).stream().map(incident -> incident.id).collect(Collectors.joining(", ", "(", ")"))
                     : "()";
-
             result.append(String.format("%s\t%d\t%s\n", location, totalCount, recentIds));
         }
 

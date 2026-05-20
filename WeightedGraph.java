@@ -2,6 +2,13 @@ package CrimeDispatch;
 
 import java.util.Set;
 
+/**
+ * Interface protocol definition laying out infrastructural methods required to map
+ * structural graphs.
+ *
+ * @author Akanksh Chitimalla
+ * @version 20/05/2026
+ */
 public interface WeightedGraph<V, E, W> {
 
     // add vertex to graph
@@ -48,5 +55,4 @@ public interface WeightedGraph<V, E, W> {
 
     // get edges pointing towards vertex
     Set<E> incomingEdgesOf(V vertex);
-
 }

@@ -1,35 +1,20 @@
 package CrimeDispatch;
 
 /**
- * The entry point for the Birmingham Crime Pattern Analysis & Police Dispatch System.
- * Creates a MyController instance and launches the text-based user interface.
+ * The entry point for Crime Dispatch Program
+ * Creates a MyController instance and launches the system test evaluations.
+ *
+ * @author Akanksh Chitimalla
+ * @version 20/05/2026
  */
 public class Main {
 
+    /**
+     * Main runtime configuration trigger point.
+     *
+     * @param args Standard CLI startup sequence adjustments.
+     */
     public static void main(String[] args) {
-        //new TUI(new MyController());
-
-        MyController controller = new MyController();
-
-        String testDate = "2026-04-14";
-        String testLocation = "Sparkhill";
-
-        System.out.println("FR1: Display Incidents By Priority");
-        String priorityOutput = controller.displayIncidentsByPriority(testDate);
-        System.out.println(priorityOutput);
-
-        System.out.println("FR2: Dispatch Police Units");
-        String dispatchOutput = controller.dispatchPoliceUnits(testDate);
-        System.out.println(dispatchOutput);
-
-        System.out.println("FR3: Find Shortest Patrol Route");
-        String routeOutput = controller.findShortestPatrolRoute(testLocation);
-        System.out.println(routeOutput);
-
-        System.out.println("FR4: Analyse Crime Hotspots");
-        String hotspotOutput = controller.analyseCrimeHotspots(testDate);
-        System.out.println(hotspotOutput);
-
+        new TUI(new MyController());
     }
 }
-
