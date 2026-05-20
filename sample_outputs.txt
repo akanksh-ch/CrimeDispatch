@@ -2,37 +2,51 @@ FR1: Display Incidents By Priority
 High priority crime incidents
 
 Rank ID	Location	District	Crime Type	Sev Date	Time
-1	I001	New Street	City Centre	Armed Robbery	5	2026-04-14	08:32
-2	I013	Steelhouse Lane	City Centre	Armed Robbery	5	2026-04-14	07:10
-3	I002	Digbeth	South	Assault	4	2026-04-14	09:15
-4	I006	Erdington	North	Assault	4	2026-04-14	10:40
-5	I007	Colmore Row	City Centre	Robbery	4	2026-04-14	06:45
+1	I013	Steelhouse Lane	City Centre	Armed Robbery	5	2026-04-14	07:10
+2	I001	New Street	City Centre	Armed Robbery	5	2026-04-14	08:32
+3	I007	Colmore Row	City Centre	Robbery	4	2026-04-14	06:45
+4	I002	Digbeth	South	Assault	4	2026-04-14	09:15
+5	I006	Erdington	North	Assault	4	2026-04-14	10:40
 6	I003	Aston	North	Burglary	3	2026-04-14	07:50
-7	I005	Edgbaston	South	Theft	3	2026-04-14	11:20
-8	I009	Jewellery Quarter	City Centre	Theft	3	2026-04-14	14:30
-9	I011	Bordesley	East	Assault	3	2026-04-14	08:00
-10	I015	Selly Oak	South	Robbery	3	2026-04-14	16:45
-11	I016	Bordesley Green	East	Robbery	3	2026-04-14	11:05
-12	I019	Quinton	West	Burglary	3	2026-04-14	13:45
-13	I004	Small Heath	East	Vandalism	2	2026-04-14	10:05
-14	I008	Handsworth	North	Burglary	2	2026-04-14	13:15
-15	I012	Kings Heath	South	Burglary	2	2026-04-14	09:50
+7	I011	Bordesley	East	Assault	3	2026-04-14	08:00
+8	I016	Bordesley Green	East	Robbery	3	2026-04-14	11:05
+9	I005	Edgbaston	South	Theft	3	2026-04-14	11:20
+10	I019	Quinton	West	Burglary	3	2026-04-14	13:45
+11	I009	Jewellery Quarter	City Centre	Theft	3	2026-04-14	14:30
+12	I015	Selly Oak	South	Robbery	3	2026-04-14	16:45
+13	I018	Acocks Green	West	Assault	2	2026-04-14	09:30
+14	I012	Kings Heath	South	Burglary	2	2026-04-14	09:50
+15	I004	Small Heath	East	Vandalism	2	2026-04-14	10:05
 16	I014	Moseley	West	Theft	2	2026-04-14	12:00
-17	I018	Acocks Green	West	Assault	2	2026-04-14	09:30
-18	I010	Bournville	South	Vandalism	1	2026-04-14	15:00
-19	I017	Sparkhill	East	Vandalism	1	2026-04-14	14:00
+17	I008	Handsworth	North	Burglary	2	2026-04-14	13:15
+18	I017	Sparkhill	East	Vandalism	1	2026-04-14	14:00
+19	I010	Bournville	South	Vandalism	1	2026-04-14	15:00
 
 FR2: Dispatch Police Units
 Police Unit Dispatch (2026-04-14)
 Incident ID	Location	District	Crime Type	Sev	Date	Time	Assigned Unit (ID	Name	Status	Current Loc	MaxCap	Load)
-I001	New Street	City Centre	Armed Robbery	5	2026-04-14	08:32	U001	Alpha Unit	Yes	Steelhouse Lane	2	1
-I013	Steelhouse Lane	City Centre	Armed Robbery	5	2026-04-14	07:10	U002	Bravo Unit	Yes	Digbeth	2	1
-I006	Erdington	North	Assault	4	2026-04-14	10:40	U003	Charlie Unit	Yes	Aston	2	1
+I013	Steelhouse Lane	City Centre	Armed Robbery	5	2026-04-14	07:10	U001	Alpha Unit	Yes	Steelhouse Lane	2	1
+I001	New Street	City Centre	Armed Robbery	5	2026-04-14	08:32	U002	Bravo Unit	Yes	Digbeth	2	1
+I007	Colmore Row	City Centre	Robbery	4	2026-04-14	06:45	U003	Charlie Unit	Yes	Aston	2	1
 I002	Digbeth	South	Assault	4	2026-04-14	09:15	U004	Delta Unit	Yes	Bournville	2	1
-I007	Colmore Row	City Centre	Robbery	4	2026-04-14	06:45	U001	Alpha Unit	Yes	Steelhouse Lane	2	2
-I015	Selly Oak	South	Robbery	3	2026-04-14	16:45	U002	Bravo Unit	Yes	Digbeth	2	2
-I009	Jewellery Quarter	City Centre	Theft	3	2026-04-14	14:30	U003	Charlie Unit	Yes	Aston	2	2
-I019	Quinton	West	Burglary	3	2026-04-14	13:45	U004	Delta Unit	Yes	Bournville	2	2
+I006	Erdington	North	Assault	4	2026-04-14	10:40	U001	Alpha Unit	Yes	Steelhouse Lane	2	2
+I003	Aston	North	Burglary	3	2026-04-14	07:50	U002	Bravo Unit	Yes	Digbeth	2	2
+I011	Bordesley	East	Assault	3	2026-04-14	08:00	U003	Charlie Unit	Yes	Aston	2	2
+I016	Bordesley Green	East	Robbery	3	2026-04-14	11:05	U004	Delta Unit	Yes	Bournville	2	2
+
+Incidents Placed on Waiting List:
+Incident ID	Location	District	Crime Type	Sev	Date	Time
+I005	Edgbaston	South	Theft	3	2026-04-14	11:20
+I019	Quinton	West	Burglary	3	2026-04-14	13:45
+I009	Jewellery Quarter	City Centre	Theft	3	2026-04-14	14:30
+I015	Selly Oak	South	Robbery	3	2026-04-14	16:45
+I018	Acocks Green	West	Assault	2	2026-04-14	09:30
+I012	Kings Heath	South	Burglary	2	2026-04-14	09:50
+I004	Small Heath	East	Vandalism	2	2026-04-14	10:05
+I014	Moseley	West	Theft	2	2026-04-14	12:00
+I008	Handsworth	North	Burglary	2	2026-04-14	13:15
+I017	Sparkhill	East	Vandalism	1	2026-04-14	14:00
+I010	Bournville	South	Vandalism	1	2026-04-14	15:00
 
 FR3: Find Shortest Patrol Route
 Shortest Patrol Route
@@ -64,3 +78,4 @@ Erdington	1	(I006)
 Kings Heath	1	(I012)
 Bournville	1	(I010)
 Acocks Green	1	(I018)
+
