@@ -82,6 +82,22 @@ public class MyController implements Controller{
 
         CrimeDispatch.Dijkstra dijkstra = new CrimeDispatch.Dijkstra(dwgraph);
 
+        // Initialise and load police stations from the CSV file
+        this.policeStations = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader("data/police_stations.csv"))) {
+            br.readLine(); // skip header
+            String line;
+            while ((line = br.readLine()) != null) {
+                // Skip empty lines if any exist in the CSV
+                if (!line.trim().isEmpty()) {
+                    policeStations.add(new PoliceStation(line));
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Critical Error: Could not load data/police_stations.csv", e);
+        }
+
     }
 
     @Override
@@ -169,40 +185,42 @@ public class MyController implements Controller{
             return "Error: The location '" + crimeLocation + "' does not exist in the road network.\n";
         }
 
-        // 2. Define our known operational police stations in the city road network
-        String[] stationNames = {"Steelhouse Lane Police Station", "Digbeth Police Station"};
-        String[] stationLocations = {"Steelhouse Lane", "Digbeth"};
-
         List<CrimeDispatch.Vertex> bestPath = null;
         String bestStationName = "";
         double minDistance = Double.MAX_VALUE;
 
         CrimeDispatch.Dijkstra dijkstraEngine = new CrimeDispatch.Dijkstra(dwgraph);
 
-        // 3. Scan all stations to locate the mathematically nearest starting point
-        for (int i = 0; i < stationLocations.length; i++) {
-            CrimeDispatch.Vertex<String> stationVertex = dwgraph.getVertex(stationLocations[i]);
-            if (stationVertex == null) continue;
+        for (PoliceStation station : policeStations) {
+            CrimeDispatch.Vertex<String> stationVertex = dwgraph.getVertex(station.getLocation());
+
+            // Skip if this station's vertex location isn't present in the road network graph
+            if (stationVertex == null) {
+                continue;
+            }
 
             List<CrimeDispatch.Vertex> currentPath = dijkstraEngine.findShortestRoute(stationVertex, targetVertex);
 
-            // Ensure a valid path was found back to the target node
-            if (currentPath != null && !currentPath.isEmpty() && currentPath.get(currentPath.size() - 1).equals(targetVertex)) {
+            // A valid traversal must have at least 2 nodes (Station -> Destination)
+            // It must explicitly start at the station node and end at the crime scene target node
+            if (currentPath != null && currentPath.size() >= 2
+                    && currentPath.get(0).equals(stationVertex)
+                    && currentPath.get(currentPath.size() - 1).equals(targetVertex)) {
+
                 double currentDistance = dijkstraEngine.getRouteDistance(currentPath);
                 if (currentDistance < minDistance) {
                     minDistance = currentDistance;
                     bestPath = currentPath;
-                    bestStationName = stationNames[i];
+                    bestStationName = station.getName();
                 }
             }
         }
 
-        // 4. Non-Functional Requirement Protection: Handle disconnected edge paths cleanly
+        // Handle disconnected edge paths cleanly or when no stations can reach the location
         if (bestPath == null || bestPath.isEmpty()) {
-            return "No patrol route available.\n";
+            return "No patrol route available from any operational police station to '" + crimeLocation + "'.\n";
         }
 
-        // 5. Construct the final Text-Based User Interface (TUI) display string
         StringBuilder result = new StringBuilder();
         result.append("Shortest Patrol Route\n--------------------------------------------------\n");
         result.append("Crime Location:         ").append(crimeLocation).append("\n");
