@@ -13,6 +13,9 @@ public class MyController implements Controller{
 
     ArrayList<Incident> incidents;
     ArrayList<CrimeDispatch.PoliceUnit> policeUnits;
+    ArrayList<CrimeDispatch.PoliceStation> policeStations;
+    CrimeDispatch.DirectedWeightedGraph<CrimeDispatch.Vertex<String>, CrimeDispatch.Edge, Double> dwgraph;
+    CrimeDispatch.Dijkstra dijkstra;
 
     public MyController(){
         // Load incidents into memory
@@ -53,6 +56,31 @@ public class MyController implements Controller{
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+
+        // Load graph
+
+        // Initialised graph
+        this.dwgraph = new CrimeDispatch.DirectedWeightedGraph();
+
+        try (BufferedReader br = new BufferedReader(new FileReader("data/road_network.csv"))) {
+            br.readLine(); // Skips header
+            String line;
+
+            while((line = br.readLine()) != null) {
+                String[] data = line.split(",");
+                CrimeDispatch.Vertex source = new CrimeDispatch.Vertex(data[0]);
+                CrimeDispatch.Vertex target = new CrimeDispatch.Vertex(data[1]);
+
+                dwgraph.addVertex(source);
+                dwgraph.addVertex(target);
+                dwgraph.addEdge(new CrimeDispatch.Edge<>(source, target, Double.parseDouble(data[2])));
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        CrimeDispatch.Dijkstra dijkstra = new CrimeDispatch.Dijkstra(dwgraph);
 
     }
 
@@ -135,7 +163,62 @@ public class MyController implements Controller{
 
     @Override
     public String findShortestPatrolRoute(String crimeLocation) {
-        return "";
+        // 1. Convert the input string location to a proper structural Vertex object
+        CrimeDispatch.Vertex<String> targetVertex = dwgraph.getVertex(crimeLocation);
+        if (targetVertex == null) {
+            return "Error: The location '" + crimeLocation + "' does not exist in the road network.\n";
+        }
+
+        // 2. Define our known operational police stations in the city road network
+        String[] stationNames = {"Steelhouse Lane Police Station", "Digbeth Police Station"};
+        String[] stationLocations = {"Steelhouse Lane", "Digbeth"};
+
+        List<CrimeDispatch.Vertex> bestPath = null;
+        String bestStationName = "";
+        double minDistance = Double.MAX_VALUE;
+
+        CrimeDispatch.Dijkstra dijkstraEngine = new CrimeDispatch.Dijkstra(dwgraph);
+
+        // 3. Scan all stations to locate the mathematically nearest starting point
+        for (int i = 0; i < stationLocations.length; i++) {
+            CrimeDispatch.Vertex<String> stationVertex = dwgraph.getVertex(stationLocations[i]);
+            if (stationVertex == null) continue;
+
+            List<CrimeDispatch.Vertex> currentPath = dijkstraEngine.findShortestRoute(stationVertex, targetVertex);
+
+            // Ensure a valid path was found back to the target node
+            if (currentPath != null && !currentPath.isEmpty() && currentPath.get(currentPath.size() - 1).equals(targetVertex)) {
+                double currentDistance = dijkstraEngine.getRouteDistance(currentPath);
+                if (currentDistance < minDistance) {
+                    minDistance = currentDistance;
+                    bestPath = currentPath;
+                    bestStationName = stationNames[i];
+                }
+            }
+        }
+
+        // 4. Non-Functional Requirement Protection: Handle disconnected edge paths cleanly
+        if (bestPath == null || bestPath.isEmpty()) {
+            return "No patrol route available.\n";
+        }
+
+        // 5. Construct the final Text-Based User Interface (TUI) display string
+        StringBuilder result = new StringBuilder();
+        result.append("Shortest Patrol Route\n--------------------------------------------------\n");
+        result.append("Crime Location:         ").append(crimeLocation).append("\n");
+        result.append("Nearest Police Station: ").append(bestStationName).append("\n");
+        result.append("Route:                  ");
+
+        for (int i = 0; i < bestPath.size(); i++) {
+            result.append(bestPath.get(i).toString());
+            if (i < bestPath.size() - 1) {
+                result.append(" -> ");
+            }
+        }
+        result.append("\n");
+        result.append(String.format("Total Distance:         %.1f km\n", minDistance));
+
+        return result.toString();
     }
 
     @Override

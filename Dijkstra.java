@@ -83,4 +83,20 @@ public class Dijkstra<V extends CrimeDispatch.Vertex, E extends CrimeDispatch.Ed
 
         return path;
     }
+
+    // Return the total distance of a path
+    public double getRouteDistance(List<CrimeDispatch.Vertex> path) {
+        if (path == null || path.size() < 2) {
+            return 0.0;
+        }
+        double totalDistance = 0.0;
+        for (int i = 0; i < path.size() - 1; i++) {
+            // Use your graph's built-in structural lookup
+            CrimeDispatch.Edge edge = graph.getEdge((V) path.get(i), (V) path.get(i + 1));
+            if (edge != null) {
+                totalDistance += graph.getEdgeWeight((E) edge);
+            }
+        }
+        return totalDistance;
+    }
 }
