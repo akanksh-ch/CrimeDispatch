@@ -1,0 +1,66 @@
+FR1: Display Incidents By Priority
+High priority crime incidents
+
+Rank ID	Location	District	Crime Type	Sev Date	Time
+1	I001	New Street	City Centre	Armed Robbery	5	2026-04-14	08:32
+2	I013	Steelhouse Lane	City Centre	Armed Robbery	5	2026-04-14	07:10
+3	I002	Digbeth	South	Assault	4	2026-04-14	09:15
+4	I006	Erdington	North	Assault	4	2026-04-14	10:40
+5	I007	Colmore Row	City Centre	Robbery	4	2026-04-14	06:45
+6	I003	Aston	North	Burglary	3	2026-04-14	07:50
+7	I005	Edgbaston	South	Theft	3	2026-04-14	11:20
+8	I009	Jewellery Quarter	City Centre	Theft	3	2026-04-14	14:30
+9	I011	Bordesley	East	Assault	3	2026-04-14	08:00
+10	I015	Selly Oak	South	Robbery	3	2026-04-14	16:45
+11	I016	Bordesley Green	East	Robbery	3	2026-04-14	11:05
+12	I019	Quinton	West	Burglary	3	2026-04-14	13:45
+13	I004	Small Heath	East	Vandalism	2	2026-04-14	10:05
+14	I008	Handsworth	North	Burglary	2	2026-04-14	13:15
+15	I012	Kings Heath	South	Burglary	2	2026-04-14	09:50
+16	I014	Moseley	West	Theft	2	2026-04-14	12:00
+17	I018	Acocks Green	West	Assault	2	2026-04-14	09:30
+18	I010	Bournville	South	Vandalism	1	2026-04-14	15:00
+19	I017	Sparkhill	East	Vandalism	1	2026-04-14	14:00
+
+FR2: Dispatch Police Units
+Police Unit Dispatch (2026-04-14)
+Incident ID	Location	District	Crime Type	Sev	Date	Time	Assigned Unit (ID	Name	Status	Current Loc	MaxCap	Load)
+I001	New Street	City Centre	Armed Robbery	5	2026-04-14	08:32	U001	Alpha Unit	Yes	Steelhouse Lane	2	1
+I013	Steelhouse Lane	City Centre	Armed Robbery	5	2026-04-14	07:10	U002	Bravo Unit	Yes	Digbeth	2	1
+I006	Erdington	North	Assault	4	2026-04-14	10:40	U003	Charlie Unit	Yes	Aston	2	1
+I002	Digbeth	South	Assault	4	2026-04-14	09:15	U004	Delta Unit	Yes	Bournville	2	1
+I007	Colmore Row	City Centre	Robbery	4	2026-04-14	06:45	U001	Alpha Unit	Yes	Steelhouse Lane	2	2
+I015	Selly Oak	South	Robbery	3	2026-04-14	16:45	U002	Bravo Unit	Yes	Digbeth	2	2
+I009	Jewellery Quarter	City Centre	Theft	3	2026-04-14	14:30	U003	Charlie Unit	Yes	Aston	2	2
+I019	Quinton	West	Burglary	3	2026-04-14	13:45	U004	Delta Unit	Yes	Bournville	2	2
+
+FR3: Find Shortest Patrol Route
+Shortest Patrol Route
+--------------------------------------------------
+Crime Location:         Sparkhill
+Nearest Police Station: Digbeth Police Station
+Route:                  Digbeth -> Small Heath -> Sparkhill
+Total Distance:         2.8 km
+
+FR4: Analyse Crime Hotspots
+Crime Hotspot Analysis by District (2026-04-14)
+District	Total Incidents	 Recent Incidents (Last 3, Recent first)
+Moseley	1	(I014)
+Colmore Row	1	(I007)
+Bordesley	1	(I011)
+Bordesley Green	1	(I016)
+Small Heath	1	(I004)
+Aston	1	(I003)
+Steelhouse Lane	1	(I013)
+Selly Oak	1	(I015)
+New Street	1	(I001)
+Handsworth	1	(I008)
+Quinton	1	(I019)
+Sparkhill	1	(I017)
+Edgbaston	1	(I005)
+Digbeth	1	(I002)
+Jewellery Quarter	1	(I009)
+Erdington	1	(I006)
+Kings Heath	1	(I012)
+Bournville	1	(I010)
+Acocks Green	1	(I018)
